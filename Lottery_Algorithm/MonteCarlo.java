@@ -34,7 +34,7 @@ public class MonteCarlo {
 				if (weight > 30) {
 					weight = 30;
 				}
-				x[i] = x[i] * ((30 - weight) / 30);
+				x[i] = (int) (x[i] * ((double)(30 - weight) / 30.0));
 			}
 			map.put(en.getKey(), x[i]);
 			//System.out.println(en.getKey() + "=" + en.getValue());
