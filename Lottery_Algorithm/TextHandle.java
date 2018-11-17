@@ -18,7 +18,8 @@ public class TextHandle {
 	private String keyContent;
 	private String startTime;
 	private String endTime;
-//	private Vector<Pair<String, Integer>> vt = new Vector<Pair<String, Integer>>();
+	// private Vector<Pair<String, Integer>> vt = new Vector<Pair<String,
+	// Integer>>();
 	private Map<String, Integer> map = new HashMap<>();
 	private int textType;
 	private String userID;
@@ -37,12 +38,10 @@ public class TextHandle {
 		try {
 			String encoding = "UTF-8";
 			File file = new File(filePath);
-
 			if (file.isFile() && file.exists()) { // 判断文件是否存在
 				StringHandle handleString = new StringHandle(startTime, endTime);
 				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
 				BufferedReader bufferedReader = new BufferedReader(read);
-
 				// 遍历文件
 				String talkContent = null;
 				String lineTxt = null;
@@ -52,10 +51,10 @@ public class TextHandle {
 							if (handleString.hasKey(keyContent, talkContent) && userID != null) { // 如果发言中含有形如"#...#"的抽奖关键字
 								handleMap(talkContent);
 							}
-
 							talkContent = null;
 							continue;
 						} else if (handleString.isTalkID(lineTxt)) {
+							userID = null;
 							textType = 0;
 						} else {
 							talkContent += lineTxt;
@@ -74,7 +73,6 @@ public class TextHandle {
 						// }
 					}
 				}
-
 				read.close();
 			} else {
 				System.out.println("找不到指定的文件");
@@ -98,12 +96,10 @@ public class TextHandle {
 			}
 		}
 		if (!map.containsKey(userID) && flag) { // 如果该id未出现过
-			map.put(userID, num); 				//存入map
+			map.put(userID, num); // 存入map
 		} else if (num > 0) {
-			num = (int)map.get(userID) + 1;
+			num = (int) map.get(userID) + 1;
 			map.put(userID, num);
 		}
-
 	}
-
 }

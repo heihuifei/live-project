@@ -58,8 +58,8 @@ public class StringHandle {
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 try {
 	            Date nowDate = format.parse(nowTime);
-	            Date startDate = format.parse(startTime);
-	            Date endDate = format.parse(endTime);
+	            Date startDate = format.parse(startTime + ":00");
+	            Date endDate = format.parse(endTime + ":00");
 	            if (nowDate.getTime() >= startDate.getTime() && nowDate.getTime()<= endDate.getTime()) {
 	            	return true;
 	            }
