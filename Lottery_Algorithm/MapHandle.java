@@ -3,16 +3,17 @@ package txtRead;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class MapHandle {
-	private Map<String, Integer> hashMap;
-	private Map<String, Integer> preMap;
+	private HashMap<String, Integer> hashMap;
+	private HashMap<String, Integer> preMap;
 	private int totalNum;
 	
-	public MapHandle(Map<String, Integer> map, Map<String, Integer> preMap, int totalNum) {
+	public MapHandle(HashMap<String, Integer> map, HashMap<String, Integer> preMap, int totalNum) {
 		// TODO Auto-generated constructor stub
 		hashMap = map;
 		this.preMap = preMap;
@@ -45,7 +46,6 @@ public class MapHandle {
             i++;
             //System.out.println(m.getKey()+"="+m.getValue());
         }
-        
         return list;
 	}
 

@@ -1,6 +1,7 @@
 package txtRead;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -22,8 +23,8 @@ public class FinalImplement {
 	public ArrayList<Entry<String, Integer>> getArrayList() {
 		TextHandle test = new TextHandle(filterType, filePath, keyContent, startTime, endTime);
 		PreTalkCount preTest = new PreTalkCount(filePath, keyContent, startTime);
-		Map<String, Integer> map = test.getMap();
-		Map<String, Integer> preMap = preTest.getMap();
+		HashMap<String, Integer> map = test.getMap();
+		HashMap<String, Integer> preMap = preTest.getMap();
 		MapHandle sortMap = new MapHandle(map, preMap, preTest.getTotalNum());
 		
 		return sortMap.sortMap(map);

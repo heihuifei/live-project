@@ -2,8 +2,10 @@ package txtRead;
 
 import java.io.File;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Pattern;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -13,7 +15,7 @@ public class PreTalkCount {
 	private String startTime;
 	private String endTime;
 //	private Vector<Pair<String, Integer>> vt = new Vector<Pair<String, Integer>>();
-	private Map<String, Integer> map = new HashMap<>();
+	private ArrayList<String> strArray = new ArrayList<>();
 	private int textType;
 	private String userID;
 	private int totalNum;
@@ -31,8 +33,27 @@ public class PreTalkCount {
 		return totalNum;
 	}
 	
+	public HashMap<String, Integer> getMap() {
+		setStrArray();
+		HashMap<String, Integer> preMap = new HashMap<>();
+		CountMinSketch c = new CountMinSketch(0.01, 0.1);
+		int i; 
+		int toal = 0;
+		int tempNum = 0;
+		for (String strTemp : strArray) {
+			c.updateItem(strTemp, 1);
+		}
+		for (String strTemp : strArray) {
+			if (!preMap.containsKey(strTemp)) {
+				tempNum = c.estimateItem(strTemp);
+				preMap.put(strTemp, tempNum);
+				totalNum += tempNum;
+			}
+		}
+		return preMap;
+	}
 	
-	public Map getMap() {
+	private ArrayList<String> setStrArray() {
 		try {
 			String encoding = "UTF-8";
 			File file = new File(filePath);
@@ -49,8 +70,7 @@ public class PreTalkCount {
 					if (textType != 0) {
 						if (lineTxt.equals("")) {
 							if (userID != null) { 			//如果有发言
-								totalNum++;
-								handleMap(talkContent);
+								strArray.add(userID);
 							}
 							talkContent = null;
 							continue;
@@ -83,17 +103,7 @@ public class PreTalkCount {
 			System.out.println("读取文件内容出错");
 			e.printStackTrace();
 		}
-		return map;
-	}
-
-	private void handleMap(String talkContent) {
-		int num;
-		if (!map.containsKey(userID)) { // 如果该id未出现过
-			map.put(userID, 1); 				//存入map
-		} else {
-			num = (int)map.get(userID) + 1;
-			map.put(userID, num);
-		}
+		return strArray;
 	}
 
 }

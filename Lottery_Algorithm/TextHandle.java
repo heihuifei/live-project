@@ -20,7 +20,7 @@ public class TextHandle {
 	private String endTime;
 	// private Vector<Pair<String, Integer>> vt = new Vector<Pair<String,
 	// Integer>>();
-	private Map<String, Integer> map = new HashMap<>();
+	private HashMap<String, Integer> map = new HashMap<>();
 	private int textType;
 	private String userID;
 
@@ -34,7 +34,7 @@ public class TextHandle {
 		textType = 0;
 	}
 
-	public Map getMap() {
+	public HashMap getMap() {
 		try {
 			String encoding = "UTF-8";
 			File file = new File(filePath);
