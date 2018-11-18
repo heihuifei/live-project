@@ -1,6 +1,8 @@
 package txtRead;
 
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Created by Hawk on 2018-11-17.
@@ -8,9 +10,11 @@ import java.util.Map;
 public class MonteCarlo {
     private static final int MAXN = 1 << 20;
     private int[] x;
+    private ArrayList<String> uselessName;
 
     public MonteCarlo() {
         x = new int[MAXN];
+        uselessName = new ArrayList<>();
     }
 
     public Map<String, Integer> rand(Map<String, Integer> map) {
@@ -31,8 +35,14 @@ public class MonteCarlo {
 				continue;
 			} else if (en.getValue() > 0) {		//恶意刷屏，降低权重
 				weight = en.getValue();
-				if (weight > 30) {
-					weight = 30;
+				if (weight > 0) {		
+					if (!uselessName.contains(en.getKey())) {
+						uselessName.add(en.getKey());
+				//	System.out.println(en.getKey());
+					}
+					if (weight > 30) {
+						weight = 30;
+					}
 				}
 				x[i] = (int) (x[i] * ((double)(30 - weight) / 30.0));
 			}
@@ -42,5 +52,14 @@ public class MonteCarlo {
 		}
 		return map;
     }
+    
+	public ArrayList<String> getUselessName() {
+		//if (!newList.isEmpty() && newList != null) {
+			System.out.println("以下是恶意灌水名单：");
+			for(String m : uselessName){
+				System.out.println(m);	
+	        }
+		return uselessName;
+	}
 
 }

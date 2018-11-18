@@ -57,7 +57,11 @@ public class TextHandle {
 							userID = null;
 							textType = 0;
 						} else {
-							talkContent += lineTxt;
+							if (talkContent == null) {
+								talkContent = lineTxt;
+							} else {
+								talkContent += lineTxt;
+							}
 						}
 					}
 					if (textType == 0) { // id行的处理
@@ -85,13 +89,16 @@ public class TextHandle {
 	}
 
 	private void handleMap(String talkContent) {
+		//System.out.println(talkContent);
 		boolean flag = true;
 		int num = 0;
 		if (filterType != 1) {
-			talkContent.replaceAll(keyContent, "");
-			if (Pattern.matches("//s*", talkContent)) { // 如果除去关键字后发送内容为空-->符合普通过滤规则
+			talkContent = talkContent.replaceAll("#(.*)#", " ");
+			//talkContent.replaceAll("、", " ");
+			if (Pattern.matches("\\s*", talkContent)) { // 如果除去关键字后发送内容为空-->符合普通过滤规则
 				flag = false;
-			} else if (Pattern.matches("//s*[//[表情//]]+//s*", talkContent) && filterType == 3) {
+			} else if (Pattern.matches("\\s*[\\[表情\\]]+\\s*", talkContent) && filterType == 3) {
+				//System.out.println(talkContent);
 				num = 1;
 			}
 		}

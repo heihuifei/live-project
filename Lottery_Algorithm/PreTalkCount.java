@@ -20,7 +20,7 @@ public class PreTalkCount {
 	private String userID;
 	private int totalNum;
 
-	public PreTalkCount(String filePath, String keyContent, String endTime) {
+	public PreTalkCount(String filePath, String endTime) {
 		this.filePath = filePath;
 		startTime = "1998-01-01 12:48:00";
 		this.endTime = endTime;

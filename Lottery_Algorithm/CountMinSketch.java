@@ -61,9 +61,10 @@ public class CountMinSketch {
 			if (hashval >= 0) {
 				C[i][hashval] = C[i][hashval] + c;
 			} else {
-				hashval = hashval * -1;
-				if (hashval < 0) {
+				if (hashval == -1 * 2e32) {
 					hashval = 0;
+				} else {
+					hashval = hashval * -1;
 				}
 				C2[i][hashval] = C2[i][hashval] + c;
 			}
@@ -89,9 +90,10 @@ public class CountMinSketch {
 			if (hashval >= 0) {
 				minval = minval < C[i][hashval] ? minval : C[i][hashval];
 			} else {
-				hashval = hashval * -1;
-				if (hashval < 0) {
+				if (hashval == -1 * 2e32) {
 					hashval = 0;
+				} else {
+					hashval = hashval * -1;
 				}
 				minval = minval < C2[i][hashval] ? minval : C2[i][hashval];
 			}

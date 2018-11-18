@@ -12,15 +12,17 @@ public class MapHandle {
 	private HashMap<String, Integer> hashMap;
 	private HashMap<String, Integer> preMap;
 	private int totalNum;
+	private ArrayList<String> uselessName;
 	
 	public MapHandle(HashMap<String, Integer> map, HashMap<String, Integer> preMap, int totalNum) {
 		// TODO Auto-generated constructor stub
 		hashMap = map;
 		this.preMap = preMap;
 		this.totalNum = totalNum;
+		this.uselessName = new ArrayList<>();
 	}
 
-	public ArrayList<Entry<String, Integer>> sortMap(Map<String, Integer> hashMap) {
+	public ArrayList<Entry<String, Integer>> sortMap() {
 		int size = hashMap.size();
 		randomMap();
 		
@@ -49,8 +51,13 @@ public class MapHandle {
         return list;
 	}
 
+	public ArrayList<String> getUselessName() {
+		return uselessName;
+	}
+	
 	private void randomMap() {
 		MonteCarlo m = new MonteCarlo();
 		m.rand(hashMap);
+		uselessName = m.getUselessName();
 	}
 }

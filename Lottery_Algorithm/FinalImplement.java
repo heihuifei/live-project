@@ -11,6 +11,11 @@ public class FinalImplement {
 	private String keyContent;
 	private String startTime;
 	private String endTime;
+	private HashMap<String, Integer> map;
+	private HashMap<String, Integer> preMap;
+	private ArrayList<String> uselessName;
+	private TextHandle test;
+	private PreTalkCount preTest;
 
 	public FinalImplement(int filterType, String filePath, String keyContent, String startTime, String endTime) {
 		this.filterType = filterType;
@@ -18,15 +23,20 @@ public class FinalImplement {
 		this.keyContent = keyContent;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.test = new TextHandle(filterType, filePath, keyContent, startTime, endTime);
+		this.preTest = new PreTalkCount(filePath, startTime);
+		this.map = test.getMap();
+		this.preMap = preTest.getMap();
+		this.uselessName = new ArrayList<>();
 	}
 	
 	public ArrayList<Entry<String, Integer>> getArrayList() {
-		TextHandle test = new TextHandle(filterType, filePath, keyContent, startTime, endTime);
-		PreTalkCount preTest = new PreTalkCount(filePath, keyContent, startTime);
-		HashMap<String, Integer> map = test.getMap();
-		HashMap<String, Integer> preMap = preTest.getMap();
 		MapHandle sortMap = new MapHandle(map, preMap, preTest.getTotalNum());
-		
-		return sortMap.sortMap(map);
+		uselessName = sortMap.getUselessName();
+		return sortMap.sortMap();
+	}
+	
+	public ArrayList<String> getUselessName() {
+		return uselessName;
 	}
 }
